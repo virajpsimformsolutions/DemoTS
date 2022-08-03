@@ -1,0 +1,44 @@
+import { createReducer, createActions } from 'reduxsauce';
+import Immutable from 'seamless-immutable';
+
+type {{pascalCase name}}State = {
+  fetching: Boolean,
+  error: ?String
+};
+
+type RootState = {
+  {{camelCase name}}: {{pascalCase name}}State
+};
+
+type {{pascalCase name}}ActionsType = {
+  {{camelCase name}}Request: (payload: any) => void
+};
+
+/* ------------- Types and Action Creators ------------- */
+const { Types, Creators } = createActions({
+  {{camelCase name}}Request: ['payload']
+});
+
+export const {{pascalCase name}}Types = Types;
+const {{pascalCase name}}Actions: {{pascalCase name}}ActionsType = Creators;
+export default {{pascalCase name}}Actions;
+
+/* ------------- Initial State ------------- */
+export const INITIAL_STATE = Immutable({
+  fetching: false,
+  error: null
+});
+
+/* ------------- Selectors ------------ */
+export const {{camelCase name}}Selectors = {
+  fetching: (state: RootState) => state.{{camelCase name}}.fetching
+};
+
+/* ------------- Reducers ------------- */
+// request the data from an api
+export const request = state => state.merge({ fetching: true, error: null });
+
+/* ------------- Hookup Reducers To Types ------------- */
+export const {{camelCase name}}Reducer = createReducer(INITIAL_STATE, {
+  [Types.{{constantCase name}}_REQUEST]: request
+});
